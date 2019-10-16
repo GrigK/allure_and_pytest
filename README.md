@@ -1,2 +1,2 @@
-# allure_and_pytest
-Use Allure and pytest
+# Allure and_Pytest
+Sample use
