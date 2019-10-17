@@ -1,12 +1,15 @@
+import allure
 from .base_page import BasePage
 from .locators import BasketPageLocators
 
 
 class BasketPage(BasePage):
     def should_be_empty_basket(self):
-        assert self.is_not_element_present(*BasketPageLocators.BASKET_TITLE, timeout=1), "Basket not empty"
-        assert self.is_element_present(*BasketPageLocators.BASKET_INNER), "Wrong basket section"
-        text_in_basket = self.browser.find_element(*BasketPageLocators.BASKET_INNER).text
-        language = self.browser.execute_script(
-            "return window.navigator.userLanguage || window.navigator.language")
-        assert BasketPageLocators.empty_text[language] in text_in_basket, "Empty basket text not found"
+        with allure.step("Проверим заголовок корзины"):
+            assert self.is_not_element_present(*BasketPageLocators.BASKET_TITLE, timeout=1), "Basket not empty"
+            assert self.is_element_present(*BasketPageLocators.BASKET_INNER), "Wrong basket section"
+        with allure.step("Проверим надпись что корзина пуста"):
+            text_in_basket = self.browser.find_element(*BasketPageLocators.BASKET_INNER).text
+            language = self.browser.execute_script(
+                "return window.navigator.userLanguage || window.navigator.language")
+            assert BasketPageLocators.empty_text[language] in text_in_basket, "Empty basket text not found"
