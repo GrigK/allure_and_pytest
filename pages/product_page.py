@@ -21,7 +21,7 @@ class ProductPage(BasePage):
         self.should_be_success()
         self.check_success_message()
 
-    @allure.step("Добавим товара в корзину")
+    @allure.step("Добавим товар в корзину")
     def add_product_to_basket(self):
         btn = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         btn.click()
@@ -62,6 +62,7 @@ class ProductPage(BasePage):
     @allure.step("Проверим наличие сообщения об успешном добавлении товара в корзину")
     def check_success_message(self):
         msg_lst = self.browser.find_elements(*ProductPageLocators.SUCCESS_MESSAGES)
+        self.take_screenshot()
         assert len(msg_lst) == 3, "Success message not found"
 
         assert self.product_name == msg_lst[0].text, "Wrong name product added to basket"
